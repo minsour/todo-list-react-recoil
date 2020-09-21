@@ -1,5 +1,6 @@
 {
   "extends": ["eslint:recommended", "standard"],
+  "plugins": ["react"],
   "parserOptions": {
     "parser": "babel-eslint"
   },
@@ -15,7 +16,9 @@
         "tabWidth": 2
       }
     ],
-    "no-multiple-empty-lines": ["error"]
+    "no-multiple-empty-lines": ["error"],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   },
   "settings": {
     "import/extensions": [".js"]
