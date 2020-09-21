@@ -1,0 +1,99 @@
+.layout {
+  display: flex;
+  padding: 20px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  padding: 10px 40px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.input {
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  font: inherit;
+}
+
+.addButton {
+  background-color: #0071e6;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.editContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  margin-top: 50px;
+  background-color: aliceblue;
+  padding: 30px 40px 45px 40px;
+}
+
+.editButton {
+  background-color: #aad34a;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.todoList {
+  padding: 15px 30px;
+}
+
+.listContainer {
+  padding: 0px;
+}
+
+.todo {
+  display: flex;
+  width: 350px;
+  margin: 10px 0;
+  padding: 0 10px 0 5px;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  height: 43px;
+  border-radius: 4px;
+}
+
+.todoCheckBox {
+  zoom: 1.5;
+  cursor: pointer;
+}
+
+.todoTitle {
+  flex-grow: 1;
+  font-size: 20px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.todoRemoveButton {
+  background-color: #df4d4d;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  cursor: pointer;
+}
