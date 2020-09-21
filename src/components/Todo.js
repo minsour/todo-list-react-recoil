@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
-import { useRecoilState } from 'recoil'
-import { todoListState } from '../store/todoStore'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { todoListState, clickedTodoState } from '../store/todoStore'
 
 const Todo = ({ todo }) => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const setClickedTodo = useSetRecoilState(clickedTodoState)
   const index = todoList.findIndex(item => item === todo)
 
   const handleToggleCompletion = useCallback(() => {
@@ -17,6 +18,10 @@ const Todo = ({ todo }) => {
       newTodo,
       ...prevTodos.slice(index + 1)
     ])
+  })
+
+  const handleClickTodo = useCallback(() => {
+    setClickedTodo(todo)
   })
 
   const handleRemoveTodo = useCallback(() => {
@@ -34,7 +39,9 @@ const Todo = ({ todo }) => {
         checked={todo.isCompleted}
         onChange={handleToggleCompletion}
       />
-      <div className='todoTitle'>{todo.title}</div>
+      <div className='todoTitle' onClick={handleClickTodo}>
+        {todo.title}
+      </div>
       <button className='todoRemoveButton' onClick={handleRemoveTodo}>
         X
       </button>
