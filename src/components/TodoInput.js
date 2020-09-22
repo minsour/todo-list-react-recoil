@@ -1,17 +1,15 @@
 import React, { useState, useCallback } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
-import { todoListState } from '../store/todoStore'
-
-let id = 0
-function getId () {
-  return id++
-}
+import { todoListState, todoState } from '../store/todoStore'
 
 const TodoInput = () => {
-  const setTodoList = useSetRecoilState(todoListState)
+  const [todoList, setTodoList] = useRecoilState(todoListState)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const setTodo = useSetRecoilState(
+    todoState(todoList.length ? todoList[todoList.length - 1] + 1 : 1)
+  )
 
   const handleTitleChange = useCallback(({ target: { value } }) => {
     setTitle(value)
@@ -21,20 +19,20 @@ const TodoInput = () => {
     setDescription(value)
   }, [])
 
-  const handleAdd = useCallback(() => {
+  const handleAdd = () => {
+    setTodo(prevTodo => ({
+      ...prevTodo,
+      title,
+      description
+    }))
     setTodoList(prevTodos => [
       ...prevTodos,
-      {
-        id: getId(),
-        title,
-        description,
-        isCompleted: false
-      }
+      prevTodos.length ? prevTodos[prevTodos.length - 1] + 1 : 1
     ])
 
     setTitle('')
     setDescription('')
-  }, [setTodoList, title, description])
+  }
 
   return (
     <div className='inputContainer'>
