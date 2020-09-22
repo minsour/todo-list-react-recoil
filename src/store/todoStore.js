@@ -1,14 +1,26 @@
-import { atom, selector } from 'recoil'
+import { atom, atomFamily, selector } from 'recoil'
 import { FILTER_STATE } from '../constants/state'
 
-export const todoListState = atom({
-  key: 'todoList',
-  default: []
+const getTodo = id => ({
+  id,
+  title: '',
+  description: '',
+  isCompleted: false
+})
+
+export const todoState = atomFamily({
+  key: 'todoState',
+  default: id => getTodo(id)
 })
 
 export const clickedTodoState = atom({
-  key: 'clickedTodo',
+  key: 'clickedTodoState',
   default: null
+})
+
+export const todoListState = atom({
+  key: 'todoListState',
+  default: []
 })
 
 export const todoFilterState = atom({
@@ -23,9 +35,15 @@ export const filteredTodoListState = selector({
     const filterState = get(todoFilterState)
 
     if (filterState === FILTER_STATE.COMPLETED) {
-      return todoList.filter(item => item.isCompleted)
+      return todoList.filter(id => {
+        const todo = get(todoState(id))
+        return todo.isCompleted
+      })
     } else if (filterState === FILTER_STATE.UNCOMPLETED) {
-      return todoList.filter(item => !item.isCompleted)
+      return todoList.filter(id => {
+        const todo = get(todoState(id))
+        return !todo.isCompleted
+      })
     }
 
     return todoList
