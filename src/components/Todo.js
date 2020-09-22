@@ -1,35 +1,21 @@
 import React, { useCallback } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { todoListState, clickedTodoState } from '../store/todoStore'
+import { clickedTodoState, todoState } from '../store/todoStore'
 
-const Todo = ({ todo }) => {
-  const [todoList, setTodoList] = useRecoilState(todoListState)
+const Todo = ({ id }) => {
+  const [todo, setTodo] = useRecoilState(todoState(id))
   const setClickedTodo = useSetRecoilState(clickedTodoState)
-  const index = todoList.findIndex(item => item === todo)
 
   const handleToggleCompletion = useCallback(() => {
-    const newTodo = {
-      ...todo,
-      isCompleted: !todo.isCompleted
-    }
-
-    setTodoList(prevTodos => [
-      ...prevTodos.slice(0, index),
-      newTodo,
-      ...prevTodos.slice(index + 1)
-    ])
-  })
+    setTodo(prevTodo => ({
+      ...prevTodo,
+      isCompleted: !prevTodo.isCompleted
+    }))
+  }, [])
 
   const handleClickTodo = useCallback(() => {
-    setClickedTodo(todo)
-  })
-
-  const handleRemoveTodo = useCallback(() => {
-    setTodoList(prevTodos => [
-      ...prevTodos.slice(0, index),
-      ...prevTodos.slice(index + 1)
-    ])
-  })
+    setClickedTodo(id)
+  }, [])
 
   return (
     <li className='todo'>
@@ -42,9 +28,7 @@ const Todo = ({ todo }) => {
       <div className='todoTitle' onClick={handleClickTodo}>
         {todo.title}
       </div>
-      <button className='todoRemoveButton' onClick={handleRemoveTodo}>
-        X
-      </button>
+      <button className='todoRemoveButton'>X</button>
     </li>
   )
 }
